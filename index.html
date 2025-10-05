@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-recycle"></i> Waste Management System</h1>
+            <p>Track, Analyze, and Reduce Environmental Impact</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="dashboard">
+                <i class="fas fa-chart-line"></i> Dashboard
+            </button>
+            <button class="tab-btn" data-tab="tracking">
+                <i class="fas fa-plus-circle"></i> Add Waste
+            </button>
+            <button class="tab-btn" data-tab="analysis">
+                <i class="fas fa-chart-pie"></i> Analysis
+            </button>
+            <button class="tab-btn" data-tab="suggestions">
+                <i class="fas fa-lightbulb"></i> Suggestions
+            </button>
+        </nav>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>This Month's Waste</h3>
+                    <div class="metric">
+                        <span class="value" id="monthlyWaste">0</span>
+                        <span class="unit">kg</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Carbon Footprint</h3>
+                    <div class="metric">
+                        <span class="value" id="carbonFootprint">0</span>
+                        <span class="unit">kg CO₂</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Recycling Rate</h3>
+                    <div class="metric">
+                        <span class="value" id="recyclingRate">0</span>
+                        <span class="unit">%</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Environmental Score</h3>
+                    <div class="metric">
+                        <span class="value" id="envScore">0</span>
+                        <span class="unit">/100</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h3>Monthly Waste Trends</h3>
+                <canvas id="wasteChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Waste Tracking Tab -->
+        <div id="tracking" class="tab-content">
+            <div class="form-container">
+                <h2>Add New Waste Entry</h2>
+                <form id="wasteForm">
+                    <div class="form-group">
+                        <label for="wasteType">Waste Type</label>
+                        <select id="wasteType" required>
+                            <option value="">Select waste type</option>
+                            <option value="plastic">Plastic</option>
+                            <option value="paper">Paper</option>
+                            <option value="glass">Glass</option>
+                            <option value="metal">Metal</option>
+                            <option value="organic">Organic</option>
+                            <option value="electronic">Electronic</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" step="0.1" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="disposalMethod">Disposal Method</label>
+                        <select id="disposalMethod" required>
+                            <option value="">Select disposal method</option>
+                            <option value="landfill">Landfill</option>
+                            <option value="recycling">Recycling</option>
+                            <option value="composting">Composting</option>
+                            <option value="incineration">Incineration</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Upload Files (Optional)</label>
+                        <div class="upload-container" id="uploadContainer">
+                            <div class="upload-content">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <p class="upload-text">Click or drag files to upload</p>
+                                <p class="upload-subtext">Images, videos, PDFs, and other documents</p>
+                                <input type="file" id="fileUpload" multiple accept="image/*,video/*,.pdf,.doc,.docx,.txt">
+                            </div>
+                        </div>
+                        <div id="fileList" class="file-list"></div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-plus"></i> Add Waste Entry
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Analysis Tab -->
+        <div id="analysis" class="tab-content">
+            <div class="analysis-container">
+                <h2>Environmental Impact Analysis</h2>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-card">
+                        <h3>Pollution Impact</h3>
+                        <div class="impact-item">
+                            <span class="impact-label">Air Pollution:</span>
+                            <span class="impact-value" id="airPollution">0 kg</span>
+                        </div>
+                        <div class="impact-item">
+                            <span class="impact-label">Water Pollution:</span>
+                            <span class="impact-value" id="waterPollution">0 kg</span>
+                        </div>
+                        <div class="impact-item">
+                            <span class="impact-label">Soil Contamination:</span>
+                            <span class="impact-value" id="soilContamination">0 kg</span>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <h3>Waste Breakdown</h3>
+                        <canvas id="breakdownChart" width="300" height="200"></canvas>
+                    </div>
+                </div>
+                
+                <div class="monthly-comparison">
+                    <h3>Monthly Comparison</h3>
+                    <div class="comparison-chart">
+                        <canvas id="comparisonChart" width="600" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggestions Tab -->
+        <div id="suggestions" class="tab-content">
+            <div class="suggestions-container">
+                <h2>Sustainable Practices</h2>
+                
+                <div class="suggestions-grid">
+                    <div class="suggestion-card">
+                        <div class="suggestion-icon">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <h3>Reduce & Recycle</h3>
+                        <p>Implement a comprehensive recycling program for paper, plastic, and metal waste.</p>
+                        <div class="impact-preview">
+                            <span>Potential reduction: 30-40%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="suggestion-card">
+                        <div class="suggestion-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3>Composting</h3>
+                        <p>Start composting organic waste to reduce landfill burden and create nutrient-rich soil.</p>
+                        <div class="impact-preview">
+                            <span>Potential reduction: 25-35%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="suggestion-card">
+                        <div class="suggestion-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <h3>Reduce Packaging</h3>
+                        <p>Choose products with minimal packaging and bring reusable bags and containers.</p>
+                        <div class="impact-preview">
+                            <span>Potential reduction: 20-30%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="suggestion-card">
+                        <div class="suggestion-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Energy Recovery</h3>
+                        <p>Consider waste-to-energy solutions for non-recyclable waste to generate electricity.</p>
+                        <div class="impact-preview">
+                            <span>Energy potential: 500-800 kWh/ton</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-plan">
+                    <h3>Recommended Action Plan</h3>
+                    <div id="actionPlan">
+                        <p>Add some waste data to see personalized recommendations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
